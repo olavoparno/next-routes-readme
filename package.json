@@ -1,0 +1,70 @@
+{
+  "name": "next-routes-readme",
+  "version": "1.8.5",
+  "description": "Creates README badges from istanbul coverage report",
+  "scripts": {
+    "build": "rm -rf lib/ && tsc",
+    "start": "npm run build && node lib/index.js -- --logo=jest",
+    "release": "standard-version",
+    "prepublishOnly": "npm run build"
+  },
+  "main": "lib/index.js",
+  "bin": {
+    "next-routes-readme": "lib/index.js"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "lib"
+  ],
+  "keywords": [
+    "readme",
+    "markdown"
+  ],
+  "author": "Olavo Parno",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/olavoparno/next-routes-readme.git"
+  },
+  "jest": {
+    "coverageReporters": [
+      "json-summary",
+      "lcov"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "modulePathIgnorePatterns": [
+      "/node_modules/",
+      "/examples/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/examples/"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.1.6",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "husky": "^8.0.2",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.0",
+    "standard-version": "^9.5.0",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}
