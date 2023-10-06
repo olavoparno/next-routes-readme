@@ -115,7 +115,9 @@ function traverseDirectory(
   }
 }
 
-traverseDirectory('./app', (file, parentFolderName) => {
+const folderPath = process.argv[2];
+
+traverseDirectory(folderPath, (file, parentFolderName) => {
   try {
     if (file.endsWith('route.ts')) {
       const handlers = parseRouteHandlers(file);
