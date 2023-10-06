@@ -1,6 +1,6 @@
 {
   "name": "next-routes-readme",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Creates README badges from istanbul coverage report",
   "scripts": {
     "build": "rm -rf lib/ && tsc",
