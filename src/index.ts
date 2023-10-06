@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from 'fs';
 import path from 'path';
 
@@ -17,8 +19,8 @@ interface RouteHandler {
 function parseRouteHandlers(routeFile: string): RouteHandler[] {
   const content = fs.readFileSync(routeFile, 'utf-8');
   const handlers: RouteHandler[] = [];
+  const dependencies: string[] = [];
   let currentHandler: RouteHandler | null = null;
-  let dependencies: string[] = [];
 
   const lines = content.split('\n');
 
