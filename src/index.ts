@@ -188,8 +188,8 @@ traverseDirectory(folderPath, (file, parentFolderName) => {
         console.log(`Implementation: ${handler.implementation}`);
         console.log(`Route: app/${parentFolderName}/route.ts`);
         console.log(`HTTP Method: ${handler.method}`);
-        console.log(`Documentation: ${JSON.stringify(handler.doc.errors, null, 2)}`);
-        // console.log(`Dependencies: ${JSON.stringify(handler.dependencies, null, 2)}\n`);
+        console.log(`Documentation: ${JSON.stringify(handler.doc, null, 2)}`);
+        console.log(`Dependencies: ${JSON.stringify(handler.dependencies, null, 2)}\n`);
       }
     }
   } catch (error) {
