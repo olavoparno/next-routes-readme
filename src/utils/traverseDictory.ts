@@ -16,10 +16,12 @@ export async function traverseDirectory(
       if (stat.isDirectory()) {
         await traverseDirectory(filePath, fileCallback, path.join(parentFolderName, file));
       } else {
-        fileCallback(filePath, parentFolderName);
+        return fileCallback(filePath, parentFolderName);
       }
     }
+
+    return Promise.reject(Error(`There are no Next.js Route files for path ${directory}.`));
   } catch (error) {
-    console.error(`Error while traversing directory ${directory}:`, error);
+    return Promise.reject(new Error(`Error while traversing directory ${directory}.`));
   }
 }
