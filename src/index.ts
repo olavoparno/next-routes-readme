@@ -1,7 +1,11 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import fs from 'fs';
 import path from 'path';
+import * as parser from '@babel/parser';
+import traverse from '@babel/traverse';
+import * as t from '@babel/types';
 
 interface RouteHandler {
   name: string;
@@ -22,72 +26,67 @@ function parseRouteHandlers(routeFile: string): RouteHandler[] {
   const dependencies: string[] = [];
   let currentHandler: RouteHandler | null = null;
 
-  const lines = content.split('\n');
+  const ast = parser.parse(content, {
+    sourceType: 'module',
+    plugins: ['jsx', 'typescript'],
+  });
 
-  for (const line of lines) {
-    const trimmedLine = line.trim();
-    const currentLineNumber = lines.indexOf(line) + 1;
-
-    if (trimmedLine.startsWith('import {')) {
-      dependencies.push(trimmedLine);
-    }
-
-    const match = /export async function (\w+)\(([\w: ,]*)\)/.exec(trimmedLine);
-
-    if (match) {
-      currentHandler = {
-        implementation: match[0],
-        name: match[1],
-        method: 'GET',
-        doc: { variables: [], conditionals: [], errors: [], comments: [] },
-        dependencies,
-      };
-    }
-
-    if (currentHandler && trimmedLine.includes('=')) {
-      currentHandler.doc.variables.push({ value: trimmedLine, line: currentLineNumber });
-    }
-
-    if (currentHandler && (trimmedLine.includes('if') || trimmedLine.includes('?'))) {
-      currentHandler.doc.conditionals.push({ value: trimmedLine, line: currentLineNumber });
-    }
-
-    if (
-      currentHandler &&
-      (trimmedLine.includes('throw') ||
-        trimmedLine.includes('new Error') ||
-        trimmedLine.includes('Promise.reject'))
-    ) {
-      currentHandler.doc.errors.push({ value: trimmedLine, line: currentLineNumber });
-    }
-
-    if (currentHandler && trimmedLine.startsWith('//')) {
-      currentHandler.doc.comments.push({ value: trimmedLine, line: currentLineNumber });
-    }
-
-    if (currentHandler && trimmedLine.startsWith('/*') && trimmedLine.endsWith('*/')) {
-      currentHandler.doc.comments.push({ value: trimmedLine, line: currentLineNumber });
-    }
-
-    if (currentHandler && trimmedLine.startsWith('/*') && !trimmedLine.endsWith('*/')) {
-      const commentInLines = { value: trimmedLine, line: currentLineNumber };
-
-      for (let i = currentLineNumber; i < lines.length; i++) {
-        const nextLine = lines[i].trim();
-
-        commentInLines.value += '\n' + nextLine;
-
-        if (nextLine.endsWith('*/')) {
-          break;
+  traverse(ast, {
+    enter(path) {
+      if (t.isImportDeclaration(path.node)) {
+        dependencies.push(path.toString());
+      } else if (t.isFunctionDeclaration(path.node) && path.node.async) {
+        const { name } = path.node.id as t.Identifier;
+        const params = path.node.params
+          .map(param => content.substring(param.start!, param.end!))
+          .join(', ');
+        const returnType = path.node.returnType
+          ? content.substring(path.node.returnType.start!, path.node.returnType.end!)
+          : '';
+        currentHandler = {
+          implementation: `async function ${name}(${params})${returnType}`,
+          name,
+          method: 'GET',
+          doc: {
+            variables: [],
+            conditionals: [],
+            errors: [],
+            comments: [],
+          },
+          dependencies,
+        };
+        if (path.node.leadingComments) {
+          path.node.leadingComments.forEach(comment => {
+            const value = content.substring(comment.start!, comment.end!);
+            currentHandler!.doc.comments.push({ value, line: comment.loc!.start.line });
+          });
+        }
+      } else if (currentHandler) {
+        const currentLineNumber = path.node.loc?.start.line || 0;
+        if (t.isVariableDeclaration(path.node)) {
+          const value = content.substring(path.node.start!, path.node.end!);
+          currentHandler.doc.variables.push({ value, line: currentLineNumber });
+        } else if (t.isIfStatement(path.node) || t.isConditionalExpression(path.node)) {
+          const value = content.substring(path.node.start!, path.node.end!);
+          currentHandler.doc.conditionals.push({ value, line: currentLineNumber });
+        } else if (
+          t.isThrowStatement(path.node) ||
+          t.isNewExpression(path.node) ||
+          t.isCallExpression(path.node)
+        ) {
+          const value = content.substring(path.node.start!, path.node.end!);
+          currentHandler.doc.errors.push({ value, line: currentLineNumber });
+        } else if (path.node.leadingComments) {
+          path.node.leadingComments.forEach(comment => {
+            const value = content.substring(comment.start!, comment.end!);
+            currentHandler!.doc.comments.push({ value, line: comment.loc!.start.line });
+          });
         }
       }
-
-      currentHandler.doc.comments.push(commentInLines);
-    }
-  }
+    },
+  });
 
   if (currentHandler) {
-    currentHandler.dependencies = dependencies;
     handlers.push(currentHandler);
   }
 
