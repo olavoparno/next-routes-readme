@@ -1,37 +1,10 @@
 #!/usr/bin/env node
 
+import fs from 'fs';
 import { constants } from './config/constants';
 import { parseRouteHandlers } from './route-parser/parser';
-import { RouteHandler } from './types/route-handler';
 import { traverseDirectory } from './utils/traverseDictory';
-import fs from 'fs';
-
-async function generateMarkdownOutput(handlers: RouteHandler[], file: string) {
-  const markdownOutput = handlers
-    .map(handler => {
-      return `
----
-# Route: ${file}  
-
-**Implementation**: \`${handler.implementation}\`  
-**HTTP Method**: ${handler.method}  
-
-**Documentation**:
-\`\`\`json
-${JSON.stringify(handler.doc, null, 2)}
-\`\`\`
-
-**Dependencies**:
-\`\`\`json
-${JSON.stringify(handler.dependencies, null, 2)}
-\`\`\`
-
-`;
-    })
-    .join('');
-
-  fs.appendFileSync('ROUTES.md', markdownOutput);
-}
+import { generateMarkdownOutput } from './utils/generateMarkdown';
 
 async function main() {
   fs.writeFileSync('ROUTES.md', ''); // Clear existing content or create new file

@@ -1,6 +1,6 @@
 
 ---
-# Route: examples/app/another-route/route.ts  
+# Route: [examples/app/another-route/route.ts](examples/app/another-route/route.ts)
 
 **Implementation**: `async function GET()`  
 **HTTP Method**: GET  
@@ -31,7 +31,7 @@
 
 
 ---
-# Route: examples/app/basic-healtcheck/route.ts  
+# Route: [examples/app/basic-healtcheck/route.ts](examples/app/basic-healtcheck/route.ts)
 
 **Implementation**: `async function GET()`  
 **HTTP Method**: GET  
@@ -55,7 +55,7 @@
 
 
 ---
-# Route: examples/app/basic-healthcheck-js/route.ts  
+# Route: [examples/app/basic-healthcheck-js/route.ts](examples/app/basic-healthcheck-js/route.ts)
 
 **Implementation**: `async function GET()`  
 **HTTP Method**: GET  
@@ -79,7 +79,7 @@
 
 
 ---
-# Route: examples/app/open-ai/route.ts  
+# Route: [examples/app/open-ai/route.ts](examples/app/open-ai/route.ts)
 
 **Implementation**: `async function POST(req: Request)`  
 **HTTP Method**: GET  
@@ -134,7 +134,7 @@
 
 
 ---
-# Route: examples/app/other-route/route.ts  
+# Route: [examples/app/other-route/route.ts](examples/app/other-route/route.ts)
 
 **Implementation**: `async function GET()`  
 **HTTP Method**: GET  
@@ -167,7 +167,7 @@
 
 
 ---
-# Route: examples/app/route.ts  
+# Route: [examples/app/route.ts](examples/app/route.ts)
 
 **Implementation**: `async function POST(request: NextRequest)`  
 **HTTP Method**: GET  
