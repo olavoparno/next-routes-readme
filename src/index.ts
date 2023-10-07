@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { constants } from './config/constants';
 import { parseRouteHandlers } from './route-parser/parser';
 import { RouteHandler } from './types/route-handler';
