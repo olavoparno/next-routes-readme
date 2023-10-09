@@ -27,7 +27,7 @@ ${
 ${
   currentHandler.doc.conditionals
     .map(conditional => {
-      return `> **Value**:${conditional.value}
+      return `> **Value**: \`${conditional.value}\`
             > **Line**: [${file}#L${conditional.line}](${file}#L${conditional.line})`;
     })
     .join('\n\n') || '*None*'
@@ -37,7 +37,7 @@ ${
 ${
   currentHandler.doc.comments
     .map(comment => {
-      return `> **Value**:${comment.value}
+      return `> **Value**: \`${comment.value}\`
             > **Line**: [${file}#L${comment.line}](${file}#L${comment.line})`;
     })
     .join('\n\n') || '*None*'
@@ -47,7 +47,7 @@ ${
 ${
   currentHandler.doc.errors
     .map(error => {
-      return `> **Value**:${error.value}
+      return `> **Value**: \`${error.value}\`
             > **Line**: [${file}#L${error.line}](${file}#L${error.line})`;
     })
     .join('\n\n') || '*None*'
@@ -57,7 +57,7 @@ ${
 ${
   currentHandler.doc.queryParams
     .map(query => {
-      return `> **Value**:${query}`;
+      return `> **Value**: \`${query}\``;
     })
     .join('\n\n') || '*None*'
 }
@@ -66,7 +66,7 @@ ${
 ${
   currentHandler.doc.routeParams
     .map(route => {
-      return `> **Value**:${route}`;
+      return `> **Value**: \`${route}\``;
     })
     .join('\n\n') || '*None*'
 }
