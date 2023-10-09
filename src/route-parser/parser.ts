@@ -2,12 +2,12 @@ import fs from 'fs';
 import traverse from '@babel/traverse';
 import * as parser from '@babel/parser';
 import * as t from '@babel/types';
-import { RouteHandler } from '../types/route-handler';
+import { Item, RouteHandler } from '../types/route-handler';
 import { isHttpStatusValid } from '../utils/isHttpStatusValid';
 
 export function parseRouteHandlers(routeFile: string): RouteHandler | null {
   const content = fs.readFileSync(routeFile, 'utf-8');
-  const dependencies: string[] = [];
+  const dependencies: Item[] = [];
 
   let currentHandler: RouteHandler | null = null;
 
@@ -19,7 +19,10 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
   traverse(ast, {
     enter(path) {
       if (t.isImportDeclaration(path.node)) {
-        dependencies.push(path.toString());
+        dependencies.push({
+          value: path.toString(),
+          line: path.node.loc!.start.line,
+        });
       }
 
       // Extract dynamic route parameter from the file name

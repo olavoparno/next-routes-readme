@@ -26,7 +26,8 @@
 
 **Dependencies**:
 
-`import { NextRequest, NextResponse } from 'next/server';`
+> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+            > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1)
 
 
 ---
@@ -62,7 +63,8 @@
 
 **Dependencies**:
 
-`import { NextRequest, NextResponse } from 'next/server';`
+> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+            > **Line**: [examples/app/[dynamicRoute]/route.ts#L1](examples/app/[dynamicRoute]/route.ts#L1)
 
 
 ---
@@ -129,7 +131,8 @@
 
 **Dependencies**:
 
-`import { NextResponse } from 'next/server';`
+> **Value**: `import { NextResponse } from 'next/server';`
+            > **Line**: [examples/app/basic-healtcheck/route.ts#L1](examples/app/basic-healtcheck/route.ts#L1)
 
 
 ---
@@ -158,7 +161,8 @@
 
 **Dependencies**:
 
-`import { NextResponse } from 'next/server';`
+> **Value**: `import { NextResponse } from 'next/server';`
+            > **Line**: [examples/app/basic-healthcheck-js/route.ts#L1](examples/app/basic-healthcheck-js/route.ts#L1)
 
 
 ---
@@ -191,7 +195,8 @@
 
 **Dependencies**:
 
-`import { cookies } from 'next/headers';`
+> **Value**: `import { cookies } from 'next/headers';`
+            > **Line**: [examples/app/basic-route/route.ts#L1](examples/app/basic-route/route.ts#L1)
 
 
 ---
@@ -221,7 +226,8 @@
 
 **Dependencies**:
 
-`import { NextRequest, NextResponse } from 'next/server';`
+> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+            > **Line**: [examples/app/basic-route/sub-route/route.ts#L1](examples/app/basic-route/sub-route/route.ts#L1)
 
 
 ---
@@ -276,8 +282,11 @@
 
 **Dependencies**:
 
-`import { Configuration, OpenAIApi } from 'openai-edge';`
-`import { OpenAIStream, StreamingTextResponse } from 'ai';`
+> **Value**: `import { Configuration, OpenAIApi } from 'openai-edge';`
+            > **Line**: [examples/app/open-ai/route.ts#L1](examples/app/open-ai/route.ts#L1)
+
+> **Value**: `import { OpenAIStream, StreamingTextResponse } from 'ai';`
+            > **Line**: [examples/app/open-ai/route.ts#L2](examples/app/open-ai/route.ts#L2)
 
 
 ---
@@ -337,5 +346,6 @@
 
 **Dependencies**:
 
-`import { NextRequest, NextResponse } from 'next/server';`
+> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+            > **Line**: [examples/app/route.ts#L1](examples/app/route.ts#L1)
 

@@ -1,4 +1,4 @@
-type Item = { value: string; line: number };
+export type Item = { value: string; line: number };
 
 export interface RouteHandler {
   name: string;
@@ -12,5 +12,5 @@ export interface RouteHandler {
     queryParams: string[];
     routeParams: string[];
   };
-  dependencies: string[];
+  dependencies: Item[];
 }

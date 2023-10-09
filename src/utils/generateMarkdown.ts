@@ -76,9 +76,10 @@ ${
 ${
   currentHandler.dependencies
     .map(dependency => {
-      return `\`${dependency}\``;
+      return `> **Value**: \`${dependency.value}\`
+            > **Line**: [${file}#L${dependency.line}](${file}#L${dependency.line})`;
     })
-    .join('\n') || '*None*'
+    .join('\n\n') || '*None*'
 }
 
 `;
