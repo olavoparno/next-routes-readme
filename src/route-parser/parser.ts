@@ -56,6 +56,8 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
             routeParams: routeParam ? [routeParam] : [],
           },
           dependencies,
+          redirects: [],
+          rewrites: [],
         };
 
         if (path.node.leadingComments) {
@@ -133,14 +135,40 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
           });
         }
 
+        // Check if it's a new Response instantiation call
+        if (
+          t.isNewExpression(path.node) &&
+          t.isIdentifier(path.node.callee) &&
+          path.node.callee.name === 'Response'
+        ) {
+          const statusArg = path.node.arguments[1];
+          if (t.isObjectExpression(statusArg)) {
+            for (const prop of statusArg.properties) {
+              if (
+                t.isObjectProperty(prop) &&
+                t.isIdentifier(prop.key) &&
+                prop.key.name === 'status' &&
+                t.isNumericLiteral(prop.value)
+              ) {
+                const statusValue = prop.value.value;
+                if (!isHttpStatusValid(statusValue)) {
+                  const value = content.substring(path.node.start!, path.node.end!);
+                  currentHandler.doc.errors.push({ value, line: currentLineNumber });
+                }
+              }
+            }
+          }
+        }
+
         if (t.isCallExpression(path.node)) {
-          // Check if it's a NextResponse.json call
+          // Check if it's a NextResponse.json call or a Response.json call
           if (
             t.isMemberExpression(path.node.callee) &&
             t.isIdentifier(path.node.callee.object) &&
-            path.node.callee.object.name === 'NextResponse' &&
+            (path.node.callee.object.name === 'NextResponse' ||
+              path.node.callee.object.name === 'Response') &&
             t.isIdentifier(path.node.callee.property) &&
-            path.node.callee.property.name === 'json'
+            (path.node.callee.property.name === 'json' || path.node.callee.property.name === 'next')
           ) {
             // Check if it has an error status argument
             if (path.node.arguments.length >= 2) {
@@ -161,6 +189,37 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
                   }
                 }
               }
+            }
+          }
+        }
+
+        // Check if has a redirect
+        if (t.isCallExpression(path.node)) {
+          // Check if it's a NextResponse.json call
+          if (
+            t.isMemberExpression(path.node.callee) &&
+            t.isIdentifier(path.node.callee.object) &&
+            (path.node.callee.object.name === 'NextResponse' ||
+              path.node.callee.object.name === 'Response') &&
+            t.isIdentifier(path.node.callee.property) &&
+            path.node.callee.property.name === 'redirect'
+          ) {
+            // Check if it has an error redirect argument
+            if (path.node.arguments.length >= 2) {
+              const [redirectURLArgument, redirectStatusArgument] = path.node.arguments as [
+                t.NewExpression,
+                t.NumericLiteral,
+              ];
+              const redirectURL = redirectURLArgument.arguments
+                .map(currentArgument => (currentArgument as t.StringLiteral).value)
+                .reverse()
+                .join('');
+
+              currentHandler.redirects.push({
+                value: redirectURL,
+                status: redirectStatusArgument.value,
+                line: currentLineNumber,
+              });
             }
           }
         }

@@ -83,6 +83,19 @@ ${
     .join('\n\n') || '*None*'
 }
 
+**Redirects**:
+
+${
+  currentHandler.redirects
+    .map((redirect, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${redirect.value}\`
+      - **Status**: \`${redirect.status}\`
+      - **Line**: [${file}#L${redirect.line}](${file}#L${redirect.line})`;
+    })
+    .join('\n\n') || '*None*'
+}
+
 **Dependencies**:
 
 ${

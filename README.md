@@ -24,34 +24,69 @@ npx next-routes-readme <path-to-your-app-folder>
 
 Replace `<path-to-api-folder>` with the path to the folder containing your API routes.
 
-## Example Output [ROUTES.md](ROUTES.md)
+## Example Output. See file with more examples: [ROUTES.md](ROUTES.md)
 
 Here is an example of the generated documentation for an API route:
 
 ```markdown
 ---
-# Route 1: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts)
+# Route 1: [examples/app/route.ts](examples/app/route.ts)
 
-**Implementation**: `async function DELETE(_: NextRequest, { params }: { params: { dynamicRouteA: string; dynamicRouteB: string } })`  
-**HTTP Method**: `DELETE`
+**Implementation**: `async function POST(request: NextRequest)`  
+**HTTP Method**: `POST`
 
 **Variables**:
 
 1. 
-      - **Value**: `const { dynamicRouteA, dynamicRouteB } = params;`
-      - **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7)
+      - **Value**: `const {
+      severity,
+      message,
+      functionName,
+      gcpProject,
+      serviceAccountEmail,
+      serviceAccountKey,
+      env,
+    } = await request.json();`
+      - **Line**: [examples/app/route.ts#L5](examples/app/route.ts#L5)
 
 **Conditionals**:
 
-*None*
+1. 
+      - **Value**: `if (
+      !severity ||
+      !message ||
+      !functionName ||
+      !gcpProject ||
+      !serviceAccountEmail ||
+      !serviceAccountKey ||
+      !env
+    ) {
+      return NextResponse.json({ error: 'Invalid Request' }, { status: 500 });
+    }`
+      - **Line**: [examples/app/route.ts#L15](examples/app/route.ts#L15)
 
 **Comments**:
 
-*None*
+1. 
+      - **Value**: `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
+      - **Line**: [examples/app/route.ts#L27](examples/app/route.ts#L27)
 
 **Errors**:
 
-*None*
+1. 
+      - **Value**: `NextResponse.json({ error: 'Invalid Request' }, { status: 500 })`
+      - **Line**: [examples/app/route.ts#L24](examples/app/route.ts#L24)
+
+2. 
+      - **Value**: `catch (error) {
+    console.error('Error logging to GCP:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }`
+      - **Line**: [examples/app/route.ts#L31](examples/app/route.ts#L31)
+
+3. 
+      - **Value**: `NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })`
+      - **Line**: [examples/app/route.ts#L33](examples/app/route.ts#L33)
 
 **Query Params**:
 
@@ -59,14 +94,14 @@ Here is an example of the generated documentation for an API route:
 
 **Route Params**:
 
-1. 
-      - **Value**: `...subMultipleDynamicRoutes`
+*None*
 
 **Dependencies**:
 
 1. 
       - **Value**: `import { NextRequest, NextResponse } from 'next/server';`
-      - **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1)
+      - **Line**: [examples/app/route.ts#L1](examples/app/route.ts#L1)
+
 ```
 
 ## Contributing
