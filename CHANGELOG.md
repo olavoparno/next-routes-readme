@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.18](https://github.com/olavoparno/next-routes-readme/compare/v0.0.17...v0.0.18) (2023-10-09)
+
+
+### Features
+
+* add table of contents ([101f0e5](https://github.com/olavoparno/next-routes-readme/commit/101f0e57a2819c7d42a2a8af85111297049e11fe))
+
 ### [0.0.17](https://github.com/olavoparno/next-routes-readme/compare/v0.0.16...v0.0.17) (2023-10-09)
 
 
