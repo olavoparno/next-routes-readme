@@ -5,8 +5,6 @@
 **Implementation**: `async function DELETE(_: NextRequest, { params }: { params: { dynamicRouteA: string; dynamicRouteB: string } })`  
 **HTTP Method**: `DELETE`
 
-**Documentation**
-
 **Variables**:
 > **Value**: `const { dynamicRouteA, dynamicRouteB } = params;`
             > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7)
@@ -24,7 +22,7 @@
 *None*
 
 **Route Params**:
-> **Value**:...subMultipleDynamicRoutes
+> **Value**: `...subMultipleDynamicRoutes`
 
 **Dependencies**:
 
@@ -36,8 +34,6 @@
 
 **Implementation**: `async function DELETE(request: NextRequest, { params }: { params: { dynamicRoute: string } })`  
 **HTTP Method**: `DELETE`
-
-**Documentation**
 
 **Variables**:
 > **Value**: `const searchParams = request.nextUrl.searchParams;`
@@ -59,10 +55,10 @@
 *None*
 
 **Query Params**:
-> **Value**:myQueryValue
+> **Value**: `myQueryValue`
 
 **Route Params**:
-> **Value**:dynamicRoute
+> **Value**: `dynamicRoute`
 
 **Dependencies**:
 
@@ -74,8 +70,6 @@
 
 **Implementation**: `async function GET()`  
 **HTTP Method**: `GET`
-
-**Documentation**
 
 **Variables**:
 > **Value**: `const res = await fetch('https://data.mongodb-api.com/...', {
@@ -115,8 +109,6 @@
 **Implementation**: `async function GET()`  
 **HTTP Method**: `GET`
 
-**Documentation**
-
 **Variables**:
 *None*
 
@@ -145,8 +137,6 @@
 
 **Implementation**: `async function GET()`  
 **HTTP Method**: `GET`
-
-**Documentation**
 
 **Variables**:
 *None*
@@ -177,8 +167,6 @@
 **Implementation**: `async function GET()`  
 **HTTP Method**: `GET`
 
-**Documentation**
-
 **Variables**:
 > **Value**: `const cookieStore = cookies();`
             > **Line**: [examples/app/basic-route/route.ts#L4](examples/app/basic-route/route.ts#L4)
@@ -196,7 +184,7 @@
 *None*
 
 **Query Params**:
-> **Value**:token
+> **Value**: `token`
 
 **Route Params**:
 *None*
@@ -211,8 +199,6 @@
 
 **Implementation**: `async function PUT(request: NextRequest)`  
 **HTTP Method**: `PUT`
-
-**Documentation**
 
 **Variables**:
 > **Value**: `const subRoute = request.nextUrl.pathname;`
@@ -244,8 +230,6 @@
 **Implementation**: `async function POST(req: Request)`  
 **HTTP Method**: `POST`
 
-**Documentation**
-
 **Variables**:
 > **Value**: `const { messages } = await req.json();`
             > **Line**: [examples/app/open-ai/route.ts#L14](examples/app/open-ai/route.ts#L14)
@@ -269,16 +253,16 @@
 *None*
 
 **Comments**:
-> **Value**:// Extract the `messages` from the body of the request
+> **Value**: `// Extract the `messages` from the body of the request`
             > **Line**: [examples/app/open-ai/route.ts#L13](examples/app/open-ai/route.ts#L13)
 
-> **Value**:// Request the OpenAI API for the response based on the prompt
+> **Value**: `// Request the OpenAI API for the response based on the prompt`
             > **Line**: [examples/app/open-ai/route.ts#L16](examples/app/open-ai/route.ts#L16)
 
-> **Value**:// Convert the response into a friendly text-stream
+> **Value**: `// Convert the response into a friendly text-stream`
             > **Line**: [examples/app/open-ai/route.ts#L28](examples/app/open-ai/route.ts#L28)
 
-> **Value**:// Respond with the stream
+> **Value**: `// Respond with the stream`
             > **Line**: [examples/app/open-ai/route.ts#L31](examples/app/open-ai/route.ts#L31)
 
 **Errors**:
@@ -302,8 +286,6 @@
 **Implementation**: `async function POST(request: NextRequest)`  
 **HTTP Method**: `POST`
 
-**Documentation**
-
 **Variables**:
 > **Value**: `const {
       severity,
@@ -317,7 +299,7 @@
             > **Line**: [examples/app/route.ts#L5](examples/app/route.ts#L5)
 
 **Conditionals**:
-> **Value**:if (
+> **Value**: `if (
       !severity ||
       !message ||
       !functionName ||
@@ -327,24 +309,24 @@
       !env
     ) {
       return NextResponse.json({ error: 'Invalid Request' }, { status: 500 });
-    }
+    }`
             > **Line**: [examples/app/route.ts#L15](examples/app/route.ts#L15)
 
 **Comments**:
-> **Value**:// eslint-disable-next-line @typescript-eslint/no-explicit-any
+> **Value**: `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
             > **Line**: [examples/app/route.ts#L27](examples/app/route.ts#L27)
 
 **Errors**:
-> **Value**:NextResponse.json({ error: 'Invalid Request' }, { status: 500 })
+> **Value**: `NextResponse.json({ error: 'Invalid Request' }, { status: 500 })`
             > **Line**: [examples/app/route.ts#L24](examples/app/route.ts#L24)
 
-> **Value**:catch (error) {
+> **Value**: `catch (error) {
     console.error('Error logging to GCP:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
+  }`
             > **Line**: [examples/app/route.ts#L31](examples/app/route.ts#L31)
 
-> **Value**:NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+> **Value**: `NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })`
             > **Line**: [examples/app/route.ts#L33](examples/app/route.ts#L33)
 
 **Query Params**:
