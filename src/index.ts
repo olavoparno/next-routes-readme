@@ -10,19 +10,21 @@ import { checkIfFolderExists } from './utils/validator';
 
 const folderPath = process.argv[2];
 
+fs.writeFileSync(constants.markdownFilename, '');
+
 async function main() {
+  let currentFileNumber = 1;
+
   await traverseDirectory(folderPath, async file => {
     try {
       if (
         file.endsWith(`${constants.routeFilename}.ts`) ||
         file.endsWith(`${constants.routeFilename}.js`)
       ) {
-        const handlers = parseRouteHandlers(file);
+        const currentHandler = parseRouteHandlers(file);
 
-        fs.writeFileSync(constants.markdownFilename, '');
-
-        for (const handler of handlers) {
-          return await generateMarkdownOutput([handler], file);
+        if (currentHandler) {
+          return await generateMarkdownOutput(currentHandler, file, currentFileNumber++);
         }
       }
     } catch {

@@ -1,29 +1,29 @@
 import fs from 'fs';
 import { RouteHandler } from '../types/route-handler';
 
-export async function generateMarkdownOutput(handlers: RouteHandler[], file: string) {
-  const markdownOutput = handlers
-    .map(handler => {
-      return `
+export async function generateMarkdownOutput(
+  currentHandler: RouteHandler,
+  file: string,
+  index: number
+) {
+  const markdownOutput = `
 ---
-# Route: [${file}](${file})
+# Route ${index}: [${file}](${file})
 
-**Implementation**: \`${handler.implementation}\`  
-**HTTP Method**: ${handler.method}  
+**Implementation**: \`${currentHandler.implementation}\`  
+**HTTP Method**: ${currentHandler.method}  
 
 **Documentation**:
 \`\`\`json
-${JSON.stringify(handler.doc, null, 2)}
+${JSON.stringify(currentHandler.doc, null, 2)}
 \`\`\`
 
 **Dependencies**:
 \`\`\`json
-${JSON.stringify(handler.dependencies, null, 2)}
+${JSON.stringify(currentHandler.dependencies, null, 2)}
 \`\`\`
 
 `;
-    })
-    .join('');
 
   fs.appendFileSync('ROUTES.md', markdownOutput);
 }

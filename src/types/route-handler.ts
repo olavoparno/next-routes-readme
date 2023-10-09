@@ -9,6 +9,8 @@ export interface RouteHandler {
     comments: Item[];
     variables: Item[];
     conditionals: Item[];
+    queryParams: string[];
+    routeParams: string[];
   };
   dependencies: string[];
 }

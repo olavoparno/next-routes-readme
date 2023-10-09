@@ -3,11 +3,15 @@ import path from 'path';
 
 export async function traverseDirectory(
   directory: string,
-  fileCallback: (file: string, parentFolderName: string) => void,
+  fileCallback: (file: string, parentFolderName: string) => Promise<void>,
   parentFolderName = ''
 ) {
   try {
     const files = await fs.readdir(directory);
+
+    if (files.length === 0) {
+      return Promise.reject(Error(`There are no Next.js Route files for path ${directory}.`));
+    }
 
     for (const file of files) {
       const filePath = path.join(directory, file);
@@ -16,11 +20,9 @@ export async function traverseDirectory(
       if (stat.isDirectory()) {
         await traverseDirectory(filePath, fileCallback, path.join(parentFolderName, file));
       } else {
-        return fileCallback(filePath, parentFolderName);
+        await fileCallback(filePath, parentFolderName);
       }
     }
-
-    return Promise.reject(Error(`There are no Next.js Route files for path ${directory}.`));
   } catch (error) {
     return Promise.reject(new Error(`Error while traversing directory ${directory}.`));
   }
