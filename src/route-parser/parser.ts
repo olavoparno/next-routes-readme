@@ -223,6 +223,45 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
             }
           }
         }
+
+        // Check if has a rewrite
+        if (t.isCallExpression(path.node)) {
+          // Check if it's a NextResponse.json call
+          if (
+            t.isMemberExpression(path.node.callee) &&
+            t.isIdentifier(path.node.callee.object) &&
+            (path.node.callee.object.name === 'NextResponse' ||
+              path.node.callee.object.name === 'Response') &&
+            t.isIdentifier(path.node.callee.property) &&
+            path.node.callee.property.name === 'rewrite'
+          ) {
+            // Check if it has an error rewrite argument
+            if (path.node.arguments.length >= 2) {
+              const [rewriteURLArgument, rewriteStatusArgument] = path.node.arguments as [
+                t.NewExpression,
+                t.ObjectExpression,
+              ];
+              const rewriteURL = rewriteURLArgument.arguments
+                .map(currentArgument => (currentArgument as t.StringLiteral).value)
+                .reverse()
+                .join('');
+              const rewriteStatusKey = rewriteStatusArgument.properties.find(prop => {
+                const statusKey = (prop as t.ObjectProperty).key as t.Identifier;
+
+                return statusKey.name === 'status';
+              });
+              const rewriteStatusValue = (rewriteStatusKey as t.ObjectProperty)
+                .value as t.NumericLiteral;
+              const rewriteStatus = rewriteStatusValue.value;
+
+              currentHandler.rewrites.push({
+                value: rewriteURL,
+                status: rewriteStatus,
+                line: currentLineNumber,
+              });
+            }
+          }
+        }
       }
     },
   });

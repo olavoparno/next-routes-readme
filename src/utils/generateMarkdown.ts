@@ -96,6 +96,19 @@ ${
     .join('\n\n') || '*None*'
 }
 
+**Rewrites**:
+
+${
+  currentHandler.rewrites
+    .map((rewrite, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${rewrite.value}\`
+      - **Status**: \`${rewrite.status}\`
+      - **Line**: [${file}#L${rewrite.line}](${file}#L${rewrite.line})`;
+    })
+    .join('\n\n') || '*None*'
+}
+
 **Dependencies**:
 
 ${

@@ -1,5 +1,5 @@
 export type Item = { value: string; line: number };
-export type RedirectItem = { value: string; status: number; line: number };
+export type RedirectRewriteItem = { value: string; status: number; line: number };
 
 export interface RouteHandler {
   name: string;
@@ -14,6 +14,6 @@ export interface RouteHandler {
     routeParams: string[];
   };
   dependencies: Item[];
-  redirects: RedirectItem[];
-  rewrites: Item[];
+  redirects: RedirectRewriteItem[];
+  rewrites: RedirectRewriteItem[];
 }
