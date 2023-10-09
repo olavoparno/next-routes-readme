@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.17](https://github.com/olavoparno/next-routes-readme/compare/v0.0.16...v0.0.17) (2023-10-09)
+
+
+### Features
+
+* add also rewrites to it ([cabf56a](https://github.com/olavoparno/next-routes-readme/commit/cabf56a0a4c33c921f0e01b3531ab34eedb77712))
+
 ### [0.0.16](https://github.com/olavoparno/next-routes-readme/compare/v0.0.15...v0.0.16) (2023-10-09)
 
 
