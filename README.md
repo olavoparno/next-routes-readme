@@ -35,8 +35,6 @@ Here is an example of the generated documentation for an API route:
 **Implementation**: `async function DELETE(_: NextRequest, { params }: { params: { dynamicRouteA: string; dynamicRouteB: string } })`  
 **HTTP Method**: `DELETE`
 
-**Documentation**
-
 **Variables**:
 > **Value**: `const { dynamicRouteA, dynamicRouteB } = params;`
             > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7)
@@ -54,11 +52,13 @@ Here is an example of the generated documentation for an API route:
 *None*
 
 **Route Params**:
-> **Value**:...subMultipleDynamicRoutes
+> **Value**: `...subMultipleDynamicRoutes`
 
 **Dependencies**:
 
-`import { NextRequest, NextResponse } from 'next/server';`
+> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+            > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1)
+
 ```
 
 ## Contributing
