@@ -11,17 +11,75 @@ export async function generateMarkdownOutput(
 # Route ${index}: [${file}](${file})
 
 **Implementation**: \`${currentHandler.implementation}\`  
-**HTTP Method**: ${currentHandler.method}  
+**HTTP Method**: \`${currentHandler.method}\`
 
-**Documentation**:
-\`\`\`json
-${JSON.stringify(currentHandler.doc, null, 2)}
-\`\`\`
+**Variables**:
+${
+  currentHandler.doc.variables
+    .map(variable => {
+      return `> **Value**: \`${variable.value}\`
+            > **Line**: [${file}#L${variable.line}](${file}#L${variable.line})`;
+    })
+    .join('\n\n') || '*None*'
+}
+
+**Conditionals**:
+${
+  currentHandler.doc.conditionals
+    .map(conditional => {
+      return `> **Value**:${conditional.value}
+            > **Line**: [${file}#L${conditional.line}](${file}#L${conditional.line})`;
+    })
+    .join('\n\n') || '*None*'
+}
+
+**Comments**:
+${
+  currentHandler.doc.comments
+    .map(comment => {
+      return `> **Value**:${comment.value}
+            > **Line**: [${file}#L${comment.line}](${file}#L${comment.line})`;
+    })
+    .join('\n\n') || '*None*'
+}
+
+**Errors**:
+${
+  currentHandler.doc.errors
+    .map(error => {
+      return `> **Value**:${error.value}
+            > **Line**: [${file}#L${error.line}](${file}#L${error.line})`;
+    })
+    .join('\n\n') || '*None*'
+}
+
+**Query Params**:
+${
+  currentHandler.doc.queryParams
+    .map(query => {
+      return `> **Value**:${query}`;
+    })
+    .join('\n\n') || '*None*'
+}
+
+**Route Params**:
+${
+  currentHandler.doc.routeParams
+    .map(route => {
+      return `> **Value**:${route}`;
+    })
+    .join('\n\n') || '*None*'
+}
 
 **Dependencies**:
-\`\`\`json
-${JSON.stringify(currentHandler.dependencies, null, 2)}
-\`\`\`
+
+${
+  currentHandler.dependencies
+    .map(dependency => {
+      return `\`${dependency}\``;
+    })
+    .join('\n') || '*None*'
+}
 
 `;
 

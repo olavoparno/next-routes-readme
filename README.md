@@ -24,53 +24,41 @@ npx next-routes-readme <path-to-your-app-folder>
 
 Replace `<path-to-api-folder>` with the path to the folder containing your API routes.
 
-## Example Output
+## Example Output [ROUTES.md](ROUTES.md)
 
 Here is an example of the generated documentation for an API route:
 
 ```markdown
-  ---
-# Route: [examples/app/route.ts](examples/app/route.ts)
+---
+# Route 1: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts)
 
-**Implementation**: `async function POST(request: NextRequest)`  
-**HTTP Method**: GET  
+**Implementation**: `async function DELETE(_: NextRequest, { params }: { params: { dynamicRouteA: string; dynamicRouteB: string } })`  
+**HTTP Method**: `DELETE`
 
-**Documentation**:
-```json
-{
-  "variables": [
-    {
-      "value": "const {\n      severity,\n      message,\n      functionName,\n      gcpProject,\n      serviceAccountEmail,\n      serviceAccountKey,\n      env,\n    } = await request.json();",
-      "line": 5
-    }
-  ],
-  "conditionals": [
-    {
-      "value": "if (\n      !severity ||\n      !message ||\n      !functionName ||\n      !gcpProject ||\n      !serviceAccountEmail ||\n      !serviceAccountKey ||\n      !env\n    ) {\n      return NextResponse.json({ error: 'Invalid Request' }, { status: 500 });\n    }",
-      "line": 15
-    }
-  ],
-  "errors": [
-    {
-      "value": "NextResponse.json({ error: 'Invalid Request' }, { status: 500 })",
-      "line": 24
-    },
-    {
-      "value": "catch (error) {\n    console.error('Error logging to GCP:', error);\n    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });\n  }",
-      "line": 31
-    },
-    {
-      "value": "NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })",
-      "line": 33
-    }
-  ],
-  "comments": [
-    {
-      "value": "// eslint-disable-next-line @typescript-eslint/no-explicit-any",
-      "line": 27
-    }
-  ]
-}
+**Documentation**
+
+**Variables**:
+> **Value**: `const { dynamicRouteA, dynamicRouteB } = params;`
+            > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7)
+
+**Conditionals**:
+*None*
+
+**Comments**:
+*None*
+
+**Errors**:
+*None*
+
+**Query Params**:
+*None*
+
+**Route Params**:
+> **Value**:...subMultipleDynamicRoutes
+
+**Dependencies**:
+
+`import { NextRequest, NextResponse } from 'next/server';`
 ```
 
 ## Contributing
