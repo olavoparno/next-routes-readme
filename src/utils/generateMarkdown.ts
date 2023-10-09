@@ -14,59 +14,71 @@ export async function generateMarkdownOutput(
 **HTTP Method**: \`${currentHandler.method}\`
 
 **Variables**:
+
 ${
   currentHandler.doc.variables
-    .map(variable => {
-      return `> **Value**: \`${variable.value}\`
-            > **Line**: [${file}#L${variable.line}](${file}#L${variable.line})`;
+    .map((variable, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${variable.value}\`
+      - **Line**: [${file}#L${variable.line}](${file}#L${variable.line})`;
     })
     .join('\n\n') || '*None*'
 }
 
 **Conditionals**:
+
 ${
   currentHandler.doc.conditionals
-    .map(conditional => {
-      return `> **Value**: \`${conditional.value}\`
-            > **Line**: [${file}#L${conditional.line}](${file}#L${conditional.line})`;
+    .map((conditional, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${conditional.value}\`
+      - **Line**: [${file}#L${conditional.line}](${file}#L${conditional.line})`;
     })
     .join('\n\n') || '*None*'
 }
 
 **Comments**:
+
 ${
   currentHandler.doc.comments
-    .map(comment => {
-      return `> **Value**: \`${comment.value}\`
-            > **Line**: [${file}#L${comment.line}](${file}#L${comment.line})`;
+    .map((comment, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${comment.value}\`
+      - **Line**: [${file}#L${comment.line}](${file}#L${comment.line})`;
     })
     .join('\n\n') || '*None*'
 }
 
 **Errors**:
+
 ${
   currentHandler.doc.errors
-    .map(error => {
-      return `> **Value**: \`${error.value}\`
-            > **Line**: [${file}#L${error.line}](${file}#L${error.line})`;
+    .map((error, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${error.value}\`
+      - **Line**: [${file}#L${error.line}](${file}#L${error.line})`;
     })
     .join('\n\n') || '*None*'
 }
 
 **Query Params**:
+
 ${
   currentHandler.doc.queryParams
-    .map(query => {
-      return `> **Value**: \`${query}\``;
+    .map((query, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${query}\``;
     })
     .join('\n\n') || '*None*'
 }
 
 **Route Params**:
+
 ${
   currentHandler.doc.routeParams
-    .map(route => {
-      return `> **Value**: \`${route}\``;
+    .map((route, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${route}\``;
     })
     .join('\n\n') || '*None*'
 }
@@ -75,9 +87,10 @@ ${
 
 ${
   currentHandler.dependencies
-    .map(dependency => {
-      return `> **Value**: \`${dependency.value}\`
-            > **Line**: [${file}#L${dependency.line}](${file}#L${dependency.line})`;
+    .map((dependency, idx) => {
+      return `${idx + 1}. 
+      - **Value**: \`${dependency.value}\`
+      - **Line**: [${file}#L${dependency.line}](${file}#L${dependency.line})`;
     })
     .join('\n\n') || '*None*'
 }

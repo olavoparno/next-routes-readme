@@ -6,28 +6,37 @@
 **HTTP Method**: `DELETE`
 
 **Variables**:
-> **Value**: `const { dynamicRouteA, dynamicRouteB } = params;`
-            > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7)
+
+1. 
+      - **Value**: `const { dynamicRouteA, dynamicRouteB } = params;`
+      - **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7)
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
+
 *None*
 
 **Errors**:
+
 *None*
 
 **Query Params**:
+
 *None*
 
 **Route Params**:
-> **Value**: `...subMultipleDynamicRoutes`
+
+1. 
+      - **Value**: `...subMultipleDynamicRoutes`
 
 **Dependencies**:
 
-> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
-            > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1)
+1. 
+      - **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+      - **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1)
 
 
 ---
@@ -37,34 +46,46 @@
 **HTTP Method**: `DELETE`
 
 **Variables**:
-> **Value**: `const searchParams = request.nextUrl.searchParams;`
-            > **Line**: [examples/app/[dynamicRoute]/route.ts#L7](examples/app/[dynamicRoute]/route.ts#L7)
 
-> **Value**: `const query = searchParams.get('myQueryValue');`
-            > **Line**: [examples/app/[dynamicRoute]/route.ts#L8](examples/app/[dynamicRoute]/route.ts#L8)
+1. 
+      - **Value**: `const searchParams = request.nextUrl.searchParams;`
+      - **Line**: [examples/app/[dynamicRoute]/route.ts#L7](examples/app/[dynamicRoute]/route.ts#L7)
 
-> **Value**: `const dynamicRoute = params.dynamicRoute;`
-            > **Line**: [examples/app/[dynamicRoute]/route.ts#L9](examples/app/[dynamicRoute]/route.ts#L9)
+2. 
+      - **Value**: `const query = searchParams.get('myQueryValue');`
+      - **Line**: [examples/app/[dynamicRoute]/route.ts#L8](examples/app/[dynamicRoute]/route.ts#L8)
+
+3. 
+      - **Value**: `const dynamicRoute = params.dynamicRoute;`
+      - **Line**: [examples/app/[dynamicRoute]/route.ts#L9](examples/app/[dynamicRoute]/route.ts#L9)
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
+
 *None*
 
 **Errors**:
+
 *None*
 
 **Query Params**:
-> **Value**: `myQueryValue`
+
+1. 
+      - **Value**: `myQueryValue`
 
 **Route Params**:
-> **Value**: `dynamicRoute`
+
+1. 
+      - **Value**: `dynamicRoute`
 
 **Dependencies**:
 
-> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
-            > **Line**: [examples/app/[dynamicRoute]/route.ts#L1](examples/app/[dynamicRoute]/route.ts#L1)
+1. 
+      - **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+      - **Line**: [examples/app/[dynamicRoute]/route.ts#L1](examples/app/[dynamicRoute]/route.ts#L1)
 
 
 ---
@@ -74,30 +95,38 @@
 **HTTP Method**: `GET`
 
 **Variables**:
-> **Value**: `const res = await fetch('https://data.mongodb-api.com/...', {
+
+1. 
+      - **Value**: `const res = await fetch('https://data.mongodb-api.com/...', {
     headers: {
       'Content-Type': 'application/json',
       'API-Key': process.env.DATA_API_KEY || '',
     },
   });`
-            > **Line**: [examples/app/another-route/route.ts#L2](examples/app/another-route/route.ts#L2)
+      - **Line**: [examples/app/another-route/route.ts#L2](examples/app/another-route/route.ts#L2)
 
-> **Value**: `const data = await res.json();`
-            > **Line**: [examples/app/another-route/route.ts#L8](examples/app/another-route/route.ts#L8)
+2. 
+      - **Value**: `const data = await res.json();`
+      - **Line**: [examples/app/another-route/route.ts#L8](examples/app/another-route/route.ts#L8)
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
+
 *None*
 
 **Errors**:
+
 *None*
 
 **Query Params**:
+
 *None*
 
 **Route Params**:
+
 *None*
 
 **Dependencies**:
@@ -112,27 +141,34 @@
 **HTTP Method**: `GET`
 
 **Variables**:
+
 *None*
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
+
 *None*
 
 **Errors**:
+
 *None*
 
 **Query Params**:
+
 *None*
 
 **Route Params**:
+
 *None*
 
 **Dependencies**:
 
-> **Value**: `import { NextResponse } from 'next/server';`
-            > **Line**: [examples/app/basic-healtcheck/route.ts#L1](examples/app/basic-healtcheck/route.ts#L1)
+1. 
+      - **Value**: `import { NextResponse } from 'next/server';`
+      - **Line**: [examples/app/basic-healtcheck/route.ts#L1](examples/app/basic-healtcheck/route.ts#L1)
 
 
 ---
@@ -142,27 +178,34 @@
 **HTTP Method**: `GET`
 
 **Variables**:
+
 *None*
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
+
 *None*
 
 **Errors**:
+
 *None*
 
 **Query Params**:
+
 *None*
 
 **Route Params**:
+
 *None*
 
 **Dependencies**:
 
-> **Value**: `import { NextResponse } from 'next/server';`
-            > **Line**: [examples/app/basic-healthcheck-js/route.ts#L1](examples/app/basic-healthcheck-js/route.ts#L1)
+1. 
+      - **Value**: `import { NextResponse } from 'next/server';`
+      - **Line**: [examples/app/basic-healthcheck-js/route.ts#L1](examples/app/basic-healthcheck-js/route.ts#L1)
 
 
 ---
@@ -172,31 +215,41 @@
 **HTTP Method**: `GET`
 
 **Variables**:
-> **Value**: `const cookieStore = cookies();`
-            > **Line**: [examples/app/basic-route/route.ts#L4](examples/app/basic-route/route.ts#L4)
 
-> **Value**: `const token = cookieStore.get('token');`
-            > **Line**: [examples/app/basic-route/route.ts#L5](examples/app/basic-route/route.ts#L5)
+1. 
+      - **Value**: `const cookieStore = cookies();`
+      - **Line**: [examples/app/basic-route/route.ts#L4](examples/app/basic-route/route.ts#L4)
+
+2. 
+      - **Value**: `const token = cookieStore.get('token');`
+      - **Line**: [examples/app/basic-route/route.ts#L5](examples/app/basic-route/route.ts#L5)
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
+
 *None*
 
 **Errors**:
+
 *None*
 
 **Query Params**:
-> **Value**: `token`
+
+1. 
+      - **Value**: `token`
 
 **Route Params**:
+
 *None*
 
 **Dependencies**:
 
-> **Value**: `import { cookies } from 'next/headers';`
-            > **Line**: [examples/app/basic-route/route.ts#L1](examples/app/basic-route/route.ts#L1)
+1. 
+      - **Value**: `import { cookies } from 'next/headers';`
+      - **Line**: [examples/app/basic-route/route.ts#L1](examples/app/basic-route/route.ts#L1)
 
 
 ---
@@ -206,28 +259,36 @@
 **HTTP Method**: `PUT`
 
 **Variables**:
-> **Value**: `const subRoute = request.nextUrl.pathname;`
-            > **Line**: [examples/app/basic-route/sub-route/route.ts#L4](examples/app/basic-route/sub-route/route.ts#L4)
+
+1. 
+      - **Value**: `const subRoute = request.nextUrl.pathname;`
+      - **Line**: [examples/app/basic-route/sub-route/route.ts#L4](examples/app/basic-route/sub-route/route.ts#L4)
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
+
 *None*
 
 **Errors**:
+
 *None*
 
 **Query Params**:
+
 *None*
 
 **Route Params**:
+
 *None*
 
 **Dependencies**:
 
-> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
-            > **Line**: [examples/app/basic-route/sub-route/route.ts#L1](examples/app/basic-route/sub-route/route.ts#L1)
+1. 
+      - **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+      - **Line**: [examples/app/basic-route/sub-route/route.ts#L1](examples/app/basic-route/sub-route/route.ts#L1)
 
 
 ---
@@ -237,10 +298,13 @@
 **HTTP Method**: `POST`
 
 **Variables**:
-> **Value**: `const { messages } = await req.json();`
-            > **Line**: [examples/app/open-ai/route.ts#L14](examples/app/open-ai/route.ts#L14)
 
-> **Value**: `const response = await openai.createChatCompletion({
+1. 
+      - **Value**: `const { messages } = await req.json();`
+      - **Line**: [examples/app/open-ai/route.ts#L14](examples/app/open-ai/route.ts#L14)
+
+2. 
+      - **Value**: `const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
     stream: true,
     messages: messages,
@@ -250,43 +314,55 @@
     frequency_penalty: 1,
     presence_penalty: 1,
   });`
-            > **Line**: [examples/app/open-ai/route.ts#L17](examples/app/open-ai/route.ts#L17)
+      - **Line**: [examples/app/open-ai/route.ts#L17](examples/app/open-ai/route.ts#L17)
 
-> **Value**: `const stream = OpenAIStream(response);`
-            > **Line**: [examples/app/open-ai/route.ts#L29](examples/app/open-ai/route.ts#L29)
+3. 
+      - **Value**: `const stream = OpenAIStream(response);`
+      - **Line**: [examples/app/open-ai/route.ts#L29](examples/app/open-ai/route.ts#L29)
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
-> **Value**: `// Extract the `messages` from the body of the request`
-            > **Line**: [examples/app/open-ai/route.ts#L13](examples/app/open-ai/route.ts#L13)
 
-> **Value**: `// Request the OpenAI API for the response based on the prompt`
-            > **Line**: [examples/app/open-ai/route.ts#L16](examples/app/open-ai/route.ts#L16)
+1. 
+      - **Value**: `// Extract the `messages` from the body of the request`
+      - **Line**: [examples/app/open-ai/route.ts#L13](examples/app/open-ai/route.ts#L13)
 
-> **Value**: `// Convert the response into a friendly text-stream`
-            > **Line**: [examples/app/open-ai/route.ts#L28](examples/app/open-ai/route.ts#L28)
+2. 
+      - **Value**: `// Request the OpenAI API for the response based on the prompt`
+      - **Line**: [examples/app/open-ai/route.ts#L16](examples/app/open-ai/route.ts#L16)
 
-> **Value**: `// Respond with the stream`
-            > **Line**: [examples/app/open-ai/route.ts#L31](examples/app/open-ai/route.ts#L31)
+3. 
+      - **Value**: `// Convert the response into a friendly text-stream`
+      - **Line**: [examples/app/open-ai/route.ts#L28](examples/app/open-ai/route.ts#L28)
+
+4. 
+      - **Value**: `// Respond with the stream`
+      - **Line**: [examples/app/open-ai/route.ts#L31](examples/app/open-ai/route.ts#L31)
 
 **Errors**:
+
 *None*
 
 **Query Params**:
+
 *None*
 
 **Route Params**:
+
 *None*
 
 **Dependencies**:
 
-> **Value**: `import { Configuration, OpenAIApi } from 'openai-edge';`
-            > **Line**: [examples/app/open-ai/route.ts#L1](examples/app/open-ai/route.ts#L1)
+1. 
+      - **Value**: `import { Configuration, OpenAIApi } from 'openai-edge';`
+      - **Line**: [examples/app/open-ai/route.ts#L1](examples/app/open-ai/route.ts#L1)
 
-> **Value**: `import { OpenAIStream, StreamingTextResponse } from 'ai';`
-            > **Line**: [examples/app/open-ai/route.ts#L2](examples/app/open-ai/route.ts#L2)
+2. 
+      - **Value**: `import { OpenAIStream, StreamingTextResponse } from 'ai';`
+      - **Line**: [examples/app/open-ai/route.ts#L2](examples/app/open-ai/route.ts#L2)
 
 
 ---
@@ -296,7 +372,9 @@
 **HTTP Method**: `POST`
 
 **Variables**:
-> **Value**: `const {
+
+1. 
+      - **Value**: `const {
       severity,
       message,
       functionName,
@@ -305,10 +383,12 @@
       serviceAccountKey,
       env,
     } = await request.json();`
-            > **Line**: [examples/app/route.ts#L5](examples/app/route.ts#L5)
+      - **Line**: [examples/app/route.ts#L5](examples/app/route.ts#L5)
 
 **Conditionals**:
-> **Value**: `if (
+
+1. 
+      - **Value**: `if (
       !severity ||
       !message ||
       !functionName ||
@@ -319,33 +399,42 @@
     ) {
       return NextResponse.json({ error: 'Invalid Request' }, { status: 500 });
     }`
-            > **Line**: [examples/app/route.ts#L15](examples/app/route.ts#L15)
+      - **Line**: [examples/app/route.ts#L15](examples/app/route.ts#L15)
 
 **Comments**:
-> **Value**: `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
-            > **Line**: [examples/app/route.ts#L27](examples/app/route.ts#L27)
+
+1. 
+      - **Value**: `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
+      - **Line**: [examples/app/route.ts#L27](examples/app/route.ts#L27)
 
 **Errors**:
-> **Value**: `NextResponse.json({ error: 'Invalid Request' }, { status: 500 })`
-            > **Line**: [examples/app/route.ts#L24](examples/app/route.ts#L24)
 
-> **Value**: `catch (error) {
+1. 
+      - **Value**: `NextResponse.json({ error: 'Invalid Request' }, { status: 500 })`
+      - **Line**: [examples/app/route.ts#L24](examples/app/route.ts#L24)
+
+2. 
+      - **Value**: `catch (error) {
     console.error('Error logging to GCP:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }`
-            > **Line**: [examples/app/route.ts#L31](examples/app/route.ts#L31)
+      - **Line**: [examples/app/route.ts#L31](examples/app/route.ts#L31)
 
-> **Value**: `NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })`
-            > **Line**: [examples/app/route.ts#L33](examples/app/route.ts#L33)
+3. 
+      - **Value**: `NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })`
+      - **Line**: [examples/app/route.ts#L33](examples/app/route.ts#L33)
 
 **Query Params**:
+
 *None*
 
 **Route Params**:
+
 *None*
 
 **Dependencies**:
 
-> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
-            > **Line**: [examples/app/route.ts#L1](examples/app/route.ts#L1)
+1. 
+      - **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+      - **Line**: [examples/app/route.ts#L1](examples/app/route.ts#L1)
 

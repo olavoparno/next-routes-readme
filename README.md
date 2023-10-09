@@ -36,29 +36,37 @@ Here is an example of the generated documentation for an API route:
 **HTTP Method**: `DELETE`
 
 **Variables**:
-> **Value**: `const { dynamicRouteA, dynamicRouteB } = params;`
-            > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7)
+
+1. 
+      - **Value**: `const { dynamicRouteA, dynamicRouteB } = params;`
+      - **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L7)
 
 **Conditionals**:
+
 *None*
 
 **Comments**:
+
 *None*
 
 **Errors**:
+
 *None*
 
 **Query Params**:
+
 *None*
 
 **Route Params**:
-> **Value**: `...subMultipleDynamicRoutes`
+
+1. 
+      - **Value**: `...subMultipleDynamicRoutes`
 
 **Dependencies**:
 
-> **Value**: `import { NextRequest, NextResponse } from 'next/server';`
-            > **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1)
-
+1. 
+      - **Value**: `import { NextRequest, NextResponse } from 'next/server';`
+      - **Line**: [examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1](examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts#L1)
 ```
 
 ## Contributing
