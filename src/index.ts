@@ -7,14 +7,15 @@ import { parseRouteHandlers } from './route-parser/parser';
 import { traverseDirectory } from './utils/traverseDictory';
 import { generateMarkdownOutput } from './utils/generateMarkdown';
 import { checkIfFolderExists } from './utils/validator';
+import { addTableOfContents } from './utils/addTableOfContents';
 
 const folderPath = process.argv[2];
 
 fs.writeFileSync(constants.markdownFilename, '');
 
-async function main() {
-  let currentFileNumber = 1;
+const currentFiles: { file: string; index: number }[] = [];
 
+async function main() {
   await traverseDirectory(folderPath, async file => {
     try {
       if (
@@ -24,7 +25,8 @@ async function main() {
         const currentHandler = parseRouteHandlers(file);
 
         if (currentHandler) {
-          return await generateMarkdownOutput(currentHandler, file, currentFileNumber++);
+          currentFiles.push({ file, index: currentFiles.length + 1 });
+          return generateMarkdownOutput(currentHandler, file, currentFiles.length);
         }
       }
     } catch {
@@ -39,6 +41,15 @@ checkIfFolderExists(folderPath)
     const projectRoot = path.resolve(process.cwd());
     const filePath = path.resolve(projectRoot, constants.markdownFilename);
 
-    console.log(`Finished. Please check ${filePath}`);
+    console.log(
+      `Finished. Created docs for ${currentFiles.length} ${
+        currentFiles.length > 1 ? 'routes' : 'route'
+      }. Please check ${filePath}`
+    );
+  })
+  .then(() => {
+    if (currentFiles.length > 0) {
+      return addTableOfContents(currentFiles);
+    }
   })
   .catch(error => console.error(error.message));

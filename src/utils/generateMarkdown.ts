@@ -1,11 +1,8 @@
 import fs from 'fs';
+import { constants } from '../config/constants';
 import { RouteHandler } from '../types/route-handler';
 
-export async function generateMarkdownOutput(
-  currentHandler: RouteHandler,
-  file: string,
-  index: number
-) {
+export function generateMarkdownOutput(currentHandler: RouteHandler, file: string, index: number) {
   const markdownOutput = `
 ---
 # Route ${index}: [${file}](${file})
@@ -123,5 +120,5 @@ ${
 
 `;
 
-  fs.appendFileSync('ROUTES.md', markdownOutput);
+  fs.appendFileSync(constants.markdownFilename, markdownOutput);
 }
