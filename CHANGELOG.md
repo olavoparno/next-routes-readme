@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.19](https://github.com/olavoparno/next-routes-readme/compare/v0.0.18...v0.0.19) (2023-10-13)
+
+
+* adjust code ([61ab671](https://github.com/olavoparno/next-routes-readme/commit/61ab671457ecfab5166c045995f349347f90696a))
+* remove DSstore ([d806a92](https://github.com/olavoparno/next-routes-readme/commit/d806a92fefd66c00d875d604b5c3606108bfea55))
+
 ### [0.0.18](https://github.com/olavoparno/next-routes-readme/compare/v0.0.17...v0.0.18) (2023-10-09)
 
 
