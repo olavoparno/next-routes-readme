@@ -8,8 +8,9 @@ import { traverseDirectory } from './utils/traverseDictory';
 import { generateMarkdownOutput } from './utils/generateMarkdown';
 import { checkIfFolderExists } from './utils/validator';
 import { addTableOfContents } from './utils/addTableOfContents';
+import { getArgumentValue } from './utils/getArguments';
 
-const projectRoot = path.resolve(process.cwd());
+const projectRoot = getArgumentValue('dir');
 
 fs.writeFileSync(constants.markdownFilename, '');
 
@@ -17,6 +18,10 @@ const currentFiles: { file: string; index: number }[] = [];
 let noRoutes = true;
 
 async function main() {
+  if (!projectRoot) {
+    throw new Error('Please provide a valid project root directory.');
+  }
+
   console.log(`Generating docs for: ${projectRoot}`);
 
   await traverseDirectory(projectRoot, async file => {
