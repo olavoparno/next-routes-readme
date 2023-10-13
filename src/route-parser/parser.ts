@@ -236,7 +236,11 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
             path.node.callee.property.name === 'rewrite'
           ) {
             // Check if it has an error rewrite argument
-            if (path.node.arguments.length >= 2) {
+            if (
+              path.node.arguments.length === 2 &&
+              path.node.arguments[0].type === 'NewExpression' &&
+              path.node.arguments[1].type === 'ObjectExpression'
+            ) {
               const [rewriteURLArgument, rewriteStatusArgument] = path.node.arguments as [
                 t.NewExpression,
                 t.ObjectExpression,

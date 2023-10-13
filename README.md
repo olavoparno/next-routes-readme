@@ -17,7 +17,7 @@ npm install next-routes-readme
 ## Usage
 
 ```bash
-npx next-routes-readme <path-to-your-app-folder>
+npx next-routes-readme --dir=<path-to-your-app-folder>
 ```
 
 > https://nextjs.org/docs/app

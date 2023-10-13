@@ -1,5 +1,5 @@
 export type Item = { value: string; line: number };
-export type RedirectRewriteItem = { value: string; status: number; line: number };
+export type RedirectRewriteItem = { value: string; line: number; status?: number };
 
 export interface RouteHandler {
   name: string;

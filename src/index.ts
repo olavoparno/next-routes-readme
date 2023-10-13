@@ -9,19 +9,25 @@ import { generateMarkdownOutput } from './utils/generateMarkdown';
 import { checkIfFolderExists } from './utils/validator';
 import { addTableOfContents } from './utils/addTableOfContents';
 
-const folderPath = process.argv[2];
+const projectRoot = path.resolve(process.cwd());
 
 fs.writeFileSync(constants.markdownFilename, '');
 
 const currentFiles: { file: string; index: number }[] = [];
+let noRoutes = true;
 
 async function main() {
-  await traverseDirectory(folderPath, async file => {
+  console.log(`Generating docs for: ${projectRoot}`);
+
+  await traverseDirectory(projectRoot, async file => {
     try {
       if (
         file.endsWith(`${constants.routeFilename}.ts`) ||
-        file.endsWith(`${constants.routeFilename}.js`)
+        file.endsWith(`${constants.routeFilename}.js`) ||
+        file.endsWith(`${constants.middlewareFilename}.ts`)
       ) {
+        noRoutes = false;
+
         const currentHandler = parseRouteHandlers(file);
 
         if (currentHandler) {
@@ -29,16 +35,21 @@ async function main() {
           return generateMarkdownOutput(currentHandler, file, currentFiles.length);
         }
       }
-    } catch {
-      return Promise.reject(new Error(`Error while parsing file ${file}.`));
+    } catch (error) {
+      return Promise.reject(
+        new Error(`Error while parsing file ${file}. ${(error as Error).message}.`)
+      );
     }
   });
+
+  if (noRoutes) {
+    throw new Error(`There are no Next.js Route files for path ${projectRoot}.`);
+  }
 }
 
-checkIfFolderExists(folderPath)
+checkIfFolderExists(projectRoot)
   .then(() => main())
   .then(() => {
-    const projectRoot = path.resolve(process.cwd());
     const filePath = path.resolve(projectRoot, constants.markdownFilename);
 
     console.log(
