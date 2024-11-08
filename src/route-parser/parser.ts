@@ -4,10 +4,14 @@ import * as parser from '@babel/parser';
 import * as t from '@babel/types';
 import { Item, RouteHandler } from '../types/route-handler';
 import { isHttpStatusValid } from '../utils/isHttpStatusValid';
+import { constants } from '../config/constants';
 
 export function parseRouteHandlers(routeFile: string): RouteHandler | null {
   const content = fs.readFileSync(routeFile, 'utf-8');
   const dependencies: Item[] = [];
+  const isMiddleware =
+    routeFile.endsWith(`${constants.middlewareFilename}.ts`) ||
+    routeFile.endsWith(`${constants.middlewareFilename}.js`);
 
   let currentHandler: RouteHandler | null = null;
 
@@ -27,12 +31,29 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
 
       // Extract dynamic route parameter from the file name
       const fileNameParts = routeFile.split('/').filter(Boolean);
-      const fileName = fileNameParts[fileNameParts.length - 2];
 
-      const routeParamMatch = fileName.match(/^\[([^]+)\]$/);
+      // Match route parameters, capturing both single `[param]` and multi `[...param]` cases
+      const routeParamMatches = fileNameParts.filter(
+        part => part.startsWith('[') && part.endsWith(']')
+      );
 
-      const routeParam = routeParamMatch ? routeParamMatch[1] : '';
+      // Initialize an object to hold both single and multiple dynamic route parameters
+      const routeParams: { [key: string]: unknown | string[] } = {};
 
+      // Loop through the matched route parameters and process them
+      routeParamMatches.forEach(param => {
+        const isArrayParam = param.startsWith('[...'); // Check if it's a multi-param (e.g., [...subMultipleDynamicRoutes])
+        const paramName = param.replace(/[[]]/g, '').replace('...', ''); // Remove brackets and ellipsis
+
+        // If it's a multi-param, store it as an empty array, else store as 'any' type (null in this case)
+        if (isArrayParam) {
+          routeParams[paramName] = [];
+        } else {
+          routeParams[paramName] = {};
+        }
+      });
+
+      // Check for async function declaration
       if (t.isFunctionDeclaration(path.node) && path.node.async) {
         const { name } = path.node.id as t.Identifier;
 
@@ -43,21 +64,26 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
           ? content.substring(path.node.returnType.start!, path.node.returnType.end!)
           : '';
 
+        // Initialize `currentHandler` with new `routeParams` that can hold both single and multi params
         currentHandler = {
           implementation: `async function ${name}(${params})${returnType}`,
           name,
           method: path.node.id?.name || '',
+          file: routeFile,
           doc: {
             variables: [],
             conditionals: [],
             errors: [],
             comments: [],
             queryParams: [],
-            routeParams: routeParam ? [routeParam] : [],
+            routeParams,
+            requestBody: null,
           },
           dependencies,
           redirects: [],
           rewrites: [],
+          cURL: '',
+          isMiddleware,
         };
 
         if (path.node.leadingComments) {
@@ -265,6 +291,71 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
               });
             }
           }
+        }
+
+        // check if request body is present
+        if (
+          t.isVariableDeclarator(path.node) &&
+          t.isObjectPattern(path.node.id) &&
+          t.isAwaitExpression(path.node.init) &&
+          t.isCallExpression(path.node.init.argument) &&
+          t.isMemberExpression(path.node.init.argument.callee) &&
+          t.isIdentifier(path.node.init.argument.callee.property) &&
+          path.node.init.argument.callee.property.name === 'json'
+        ) {
+          // Initialize the requestBody object in the current handler documentation
+          const requestBodyObject: Record<string, string> = {};
+
+          // Loop through properties in the destructured pattern
+          for (const property of path.node.id.properties) {
+            if (t.isObjectProperty(property) && t.isIdentifier(property.key)) {
+              requestBodyObject[property.key.name] = '<value>'; // Set each property with a placeholder
+            }
+          }
+
+          // Assign the generated object to the current handler's requestBody documentation
+          currentHandler.doc.requestBody = requestBodyObject;
+        }
+
+        // 'http://localhost:3000:dynamicRoute/${dynamicRoute},:subMultipleDynamicRoutes/${subMultipleDynamicRoutes}/'
+        if (currentHandler && !isMiddleware) {
+          let cURL = `curl -X ${currentHandler.method.toUpperCase()} 'http://localhost:3000${
+            routeParams
+              ? `/${Object.keys(routeParams)
+                  .map(currentParamKey => currentParamKey)
+                  .join('/')}`
+              : ''
+          }'`;
+
+          if (currentHandler.doc.queryParams.length > 0) {
+            const queryParamsString = currentHandler.doc.queryParams
+              .map(param => `${param}=${param}`)
+              .join('&');
+            cURL += `?${queryParamsString}`;
+          }
+
+          cURL += ` --header 'Content-Type: application/json'`;
+
+          // If the function has any request body (for POST, PUT, etc.), add a sample JSON payload
+          if (
+            currentHandler.doc.requestBody &&
+            (currentHandler.method.toUpperCase() === 'POST' ||
+              currentHandler.method.toUpperCase() === 'PUT')
+          ) {
+            // '{"key1": "value1", "key2": "value2"}'
+            const body = currentHandler.doc.requestBody
+              ? Object.keys(currentHandler.doc.requestBody)
+                  .map(
+                    currentKey =>
+                      `\\"${currentKey}\\": \\"${currentHandler?.doc.requestBody?.[currentKey]}\\"`
+                  )
+                  .join(',')
+              : '';
+
+            cURL += ` --data '{ ${body} }'`;
+          }
+
+          currentHandler.cURL = `"${cURL}"`;
         }
       }
     },

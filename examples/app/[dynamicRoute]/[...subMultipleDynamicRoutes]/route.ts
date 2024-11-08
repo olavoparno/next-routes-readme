@@ -1,12 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function DELETE(
+export async function POST(
   _: NextRequest,
-  { params }: { params: { dynamicRouteA: string; dynamicRouteB: string } }
+  {
+    params,
+  }: {
+    params: {
+      dynamicRoute: string;
+      subMultipleDynamicRoutes: [dynamicRouteA: string, dynamicRouteB: string];
+    };
+  }
 ) {
-  const { dynamicRouteA, dynamicRouteB } = params;
+  const { dynamicRoute, subMultipleDynamicRoutes } = params;
+  const [subDynamicRouteA, subDynamicRouteB] = subMultipleDynamicRoutes;
 
   return NextResponse.json({
-    message: `Hello from dynamicRoute slugA ${dynamicRouteA} and slugB ${dynamicRouteB}!`,
+    message: `Hello from ${dynamicRoute} with ${subDynamicRouteA} and ${subDynamicRouteB}!`,
   });
 }

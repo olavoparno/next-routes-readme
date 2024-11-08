@@ -4,6 +4,7 @@ export type RedirectRewriteItem = { value: string; line: number; status?: number
 export interface RouteHandler {
   name: string;
   method: string;
+  file: string;
   implementation: string;
   doc: {
     errors: Item[];
@@ -11,9 +12,12 @@ export interface RouteHandler {
     variables: Item[];
     conditionals: Item[];
     queryParams: string[];
-    routeParams: string[];
+    routeParams: Record<string, unknown>;
+    requestBody: Record<string, unknown> | null;
   };
   dependencies: Item[];
   redirects: RedirectRewriteItem[];
   rewrites: RedirectRewriteItem[];
+  cURL: string;
+  isMiddleware: boolean;
 }

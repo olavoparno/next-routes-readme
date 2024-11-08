@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { constants } from '../config/constants';
 
 const removeSpecialCharactersFromFilename = (filename: string) => {
@@ -9,18 +10,20 @@ export function addTableOfContents(
   currentFiles: {
     file: string;
     index: number;
-  }[]
+  }[],
+  outputRootDir: string
 ) {
+  const currentFilePath = path.resolve(outputRootDir, constants.markdownFilename);
   const markdownOutput = `# Table of Contents
 
 ${currentFiles
   .map(({ file, index }) => {
-    return `- [Route ${index}](#route-${index}-${removeSpecialCharactersFromFilename(file)})`;
+    return `- [Route ${index}](#${removeSpecialCharactersFromFilename(file)})`;
   })
-  .join('\n')}`;
+  .join('\n')}\n`;
 
-  const existingContent = fs.readFileSync(constants.markdownFilename, 'utf-8');
+  const existingContent = fs.readFileSync(currentFilePath, 'utf-8');
   const combinedContent = markdownOutput + existingContent;
 
-  fs.writeFileSync(constants.markdownFilename, combinedContent);
+  fs.writeFileSync(currentFilePath, combinedContent);
 }

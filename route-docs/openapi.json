@@ -1,0 +1,377 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Generated API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/[dynamicRoute]/[...subMultipleDynamicRoutes]": {
+      "post": {
+        "summary": "Handler for POST",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": "curl -X POST 'http://localhost:3000/[dynamicRoute]/[subMultipleDynamicRoutes]' --header 'Content-Type: application/json'"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/[dynamicRoute]": {
+      "delete": {
+        "summary": "Handler for DELETE",
+        "parameters": [
+          {
+            "name": "myQueryValue",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Query parameter myQueryValue"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/another-route": {
+      "get": {
+        "summary": "Handler for GET",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/basic-healtcheck": {
+      "get": {
+        "summary": "Handler for GET",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/basic-healthcheck.ts": {
+      "get": {
+        "summary": "Handler for GET",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/basic-healthcheck-response": {
+      "get": {
+        "summary": "Handler for GET",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/basic-redirect-response": {
+      "get": {
+        "summary": "Handler for GET",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/basic-rewrite-response": {
+      "get": {
+        "summary": "Handler for GET",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/basic-route": {
+      "get": {
+        "summary": "Handler for GET",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Query parameter token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/basic-route/sub-route": {
+      "put": {
+        "summary": "Handler for PUT",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": "curl -X PUT 'http://localhost:3000/' --header 'Content-Type: application/json'"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/open-ai": {
+      "post": {
+        "summary": "Handler for POST",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": "curl -X POST 'http://localhost:3000/' --header 'Content-Type: application/json' --data '{ \"messages\": \"<value>\" }'"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api//app": {
+      "post": {
+        "summary": "Handler for POST",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successful response"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": "curl -X POST 'http://localhost:3000/' --header 'Content-Type: application/json' --data '{ \"severity\": \"<value>\",\"message\": \"<value>\",\"functionName\": \"<value>\",\"gcpProject\": \"<value>\",\"serviceAccountEmail\": \"<value>\",\"serviceAccountKey\": \"<value>\",\"env\": \"<value>\" }'"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  }
+}
