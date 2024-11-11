@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export type PostTypings = {
-  fakeType: string;
+export const dynamic = 'force-dynamic';
+
+const anotherFunction = async () => {
+  return null;
 };
 
-export async function POST(request: NextRequest) {
+export type FakeTypings = Awaited<ReturnType<typeof anotherFunction>>;
+
+export const POST = async (request: NextRequest): Promise<{ message: string }> => {
+  await anotherFunction();
+
   try {
     const {
       severity,
@@ -36,4 +42,4 @@ export async function POST(request: NextRequest) {
     console.error('Error logging to GCP:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
-}
+};

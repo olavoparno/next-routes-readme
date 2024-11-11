@@ -28,14 +28,14 @@ export function generateOpenAPISpec(
       .replace(/.ts|.js/, '')
       .replace('/route', '');
     const normalizedFileNameWOApp = normalizedFileName.startsWith('/app/')
-      ? normalizedFileName.replace('/app/', '')
+      ? normalizedFileName.replace('/app/', '/')
       : normalizedFileName;
-    const routePath = `/api/${normalizedFileNameWOApp}`;
+    const routePath = `/api${normalizedFileNameWOApp}`;
 
     openApiString += `
     "${routePath}": {
       "${currentHandler.method.toLowerCase()}": {
-        "summary": "Handler for ${currentHandler.name}",
+        "summary": "${currentHandler.method} handler to ${routePath}",
         "parameters": [
           ${currentHandler.doc.queryParams
             .map(

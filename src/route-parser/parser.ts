@@ -6,6 +6,12 @@ import { Item, RouteHandler } from '../types/route-handler';
 import { isHttpStatusValid } from '../utils/isHttpStatusValid';
 import { constants } from '../config/constants';
 
+function getHttpMethod(name: string): string {
+  const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'];
+
+  return methods.find(method => name.toUpperCase().startsWith(method)) || '<unable_to_determine>';
+}
+
 export function parseRouteHandlers(routeFile: string): RouteHandler | null {
   const content = fs.readFileSync(routeFile, 'utf-8');
   const dependencies: Item[] = [];
@@ -62,9 +68,17 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
         }
       });
 
+      function isPathFunctionOrArrowFunction(node: t.Node) {
+        return t.isFunctionDeclaration(node) || t.isArrowFunctionExpression(node);
+      }
+
       // Check for async function declaration
-      if (t.isFunctionDeclaration(path.node) && path.node.async) {
-        const { name } = path.node.id as t.Identifier;
+      if (isPathFunctionOrArrowFunction(path.node) && path.node.async) {
+        const name =
+          (path.node as t.FunctionDeclaration)?.id?.name ||
+          (path.container as t.FunctionDeclaration)?.id?.name ||
+          '';
+        const isFunctionDeclaration = t.isFunctionDeclaration(path.node);
 
         const params = path.node.params
           .map(param => content.substring(param.start!, param.end!))
@@ -75,9 +89,11 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
 
         // Initialize `currentHandler` with new `routeParams` that can hold both single and multi params
         currentHandler = {
-          implementation: `async function ${name}(${params})${returnType}`,
+          implementation: isFunctionDeclaration
+            ? `async function ${name}(${params})${returnType}`
+            : `const ${name} = async (${params})${returnType}`,
           name,
-          method: path.node.id?.name || '',
+          method: getHttpMethod(name),
           file: routeFile,
           doc: {
             variables: [],

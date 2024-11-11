@@ -7,7 +7,7 @@
   "paths": {
     "/api/[dynamicRoute]/[...subMultipleDynamicRoutes]": {
       "post": {
-        "summary": "Handler for POST",
+        "summary": "POST handler to /api/[dynamicRoute]/[...subMultipleDynamicRoutes]",
         "parameters": [
           
         ],
@@ -44,7 +44,7 @@
     },
     "/api/[dynamicRoute]": {
       "delete": {
-        "summary": "Handler for DELETE",
+        "summary": "DELETE handler to /api/[dynamicRoute]",
         "parameters": [
           {
             "name": "myQueryValue",
@@ -76,7 +76,7 @@
     },
     "/api/another-route": {
       "get": {
-        "summary": "Handler for GET",
+        "summary": "GET handler to /api/another-route",
         "parameters": [
           
         ],
@@ -102,7 +102,7 @@
     },
     "/api/basic-healtcheck": {
       "get": {
-        "summary": "Handler for GET",
+        "summary": "GET handler to /api/basic-healtcheck",
         "parameters": [
           
         ],
@@ -128,7 +128,7 @@
     },
     "/api/basic-healthcheck.ts": {
       "get": {
-        "summary": "Handler for GET",
+        "summary": "GET handler to /api/basic-healthcheck.ts",
         "parameters": [
           
         ],
@@ -154,7 +154,7 @@
     },
     "/api/basic-healthcheck-response": {
       "get": {
-        "summary": "Handler for GET",
+        "summary": "GET handler to /api/basic-healthcheck-response",
         "parameters": [
           
         ],
@@ -180,7 +180,7 @@
     },
     "/api/basic-redirect-response": {
       "get": {
-        "summary": "Handler for GET",
+        "summary": "GET handler to /api/basic-redirect-response",
         "parameters": [
           
         ],
@@ -206,7 +206,7 @@
     },
     "/api/basic-rewrite-response": {
       "get": {
-        "summary": "Handler for GET",
+        "summary": "GET handler to /api/basic-rewrite-response",
         "parameters": [
           
         ],
@@ -232,7 +232,7 @@
     },
     "/api/basic-route": {
       "get": {
-        "summary": "Handler for GET",
+        "summary": "GET handler to /api/basic-route",
         "parameters": [
           {
             "name": "token",
@@ -264,7 +264,7 @@
     },
     "/api/basic-route/sub-route": {
       "put": {
-        "summary": "Handler for PUT",
+        "summary": "PUT handler to /api/basic-route/sub-route",
         "parameters": [
           
         ],
@@ -301,7 +301,7 @@
     },
     "/api/open-ai": {
       "post": {
-        "summary": "Handler for POST",
+        "summary": "POST handler to /api/open-ai",
         "parameters": [
           
         ],
@@ -336,9 +336,9 @@
         }
       }
     },
-    "/api//app": {
+    "/api/app": {
       "post": {
-        "summary": "Handler for POST",
+        "summary": "POST handler to /api/app",
         "parameters": [
           
         ],

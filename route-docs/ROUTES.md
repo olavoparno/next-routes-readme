@@ -724,7 +724,7 @@
 
 # [examples/app/route.ts](examples/app/route.ts):
 
-**Implementation**: `async function POST(request: NextRequest)`  
+**Implementation**: `const POST = async (request: NextRequest): Promise<{ message: string }>`  
 **HTTP Method**: `POST`
 
 **Variables**:
@@ -739,7 +739,7 @@
       serviceAccountKey,
       env,
     } = await request.json();`
-      - **Line**: [examples/app/route.ts#L9](examples/app/route.ts#L9)
+      - **Line**: [examples/app/route.ts#L15](examples/app/route.ts#L15)
 
 **Conditionals**:
 
@@ -755,30 +755,30 @@
     ) {
       return NextResponse.json({ error: 'Invalid Request' }, { status: 500 });
     }`
-      - **Line**: [examples/app/route.ts#L19](examples/app/route.ts#L19)
+      - **Line**: [examples/app/route.ts#L25](examples/app/route.ts#L25)
 
 **Comments**:
 
 1. 
       - **Value**: `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
-      - **Line**: [examples/app/route.ts#L31](examples/app/route.ts#L31)
+      - **Line**: [examples/app/route.ts#L37](examples/app/route.ts#L37)
 
 **Errors**:
 
 1. 
       - **Value**: `NextResponse.json({ error: 'Invalid Request' }, { status: 500 })`
-      - **Line**: [examples/app/route.ts#L28](examples/app/route.ts#L28)
+      - **Line**: [examples/app/route.ts#L34](examples/app/route.ts#L34)
 
 2. 
       - **Value**: `catch (error) {
     console.error('Error logging to GCP:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }`
-      - **Line**: [examples/app/route.ts#L35](examples/app/route.ts#L35)
+      - **Line**: [examples/app/route.ts#L41](examples/app/route.ts#L41)
 
 3. 
       - **Value**: `NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })`
-      - **Line**: [examples/app/route.ts#L37](examples/app/route.ts#L37)
+      - **Line**: [examples/app/route.ts#L43](examples/app/route.ts#L43)
 
 **Query Params**:
 
@@ -825,7 +825,7 @@
 # [examples/middleware.ts](examples/middleware.ts):
 
 **Implementation**: `async function middleware(request: NextRequest)`  
-**HTTP Method**: `middleware`
+**HTTP Method**: `<unable_to_determine>`
 
 **Variables**:
 
