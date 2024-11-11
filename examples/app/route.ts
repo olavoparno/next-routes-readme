@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export type PostTypings = {
+  fakeType: string;
+};
+
 export async function POST(request: NextRequest) {
   try {
     const {

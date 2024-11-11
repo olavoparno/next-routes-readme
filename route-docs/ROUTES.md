@@ -739,7 +739,7 @@
       serviceAccountKey,
       env,
     } = await request.json();`
-      - **Line**: [examples/app/route.ts#L5](examples/app/route.ts#L5)
+      - **Line**: [examples/app/route.ts#L9](examples/app/route.ts#L9)
 
 **Conditionals**:
 
@@ -755,30 +755,30 @@
     ) {
       return NextResponse.json({ error: 'Invalid Request' }, { status: 500 });
     }`
-      - **Line**: [examples/app/route.ts#L15](examples/app/route.ts#L15)
+      - **Line**: [examples/app/route.ts#L19](examples/app/route.ts#L19)
 
 **Comments**:
 
 1. 
       - **Value**: `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
-      - **Line**: [examples/app/route.ts#L27](examples/app/route.ts#L27)
+      - **Line**: [examples/app/route.ts#L31](examples/app/route.ts#L31)
 
 **Errors**:
 
 1. 
       - **Value**: `NextResponse.json({ error: 'Invalid Request' }, { status: 500 })`
-      - **Line**: [examples/app/route.ts#L24](examples/app/route.ts#L24)
+      - **Line**: [examples/app/route.ts#L28](examples/app/route.ts#L28)
 
 2. 
       - **Value**: `catch (error) {
     console.error('Error logging to GCP:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }`
-      - **Line**: [examples/app/route.ts#L31](examples/app/route.ts#L31)
+      - **Line**: [examples/app/route.ts#L35](examples/app/route.ts#L35)
 
 3. 
       - **Value**: `NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })`
-      - **Line**: [examples/app/route.ts#L33](examples/app/route.ts#L33)
+      - **Line**: [examples/app/route.ts#L37](examples/app/route.ts#L37)
 
 **Query Params**:
 

@@ -22,6 +22,15 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
 
   traverse(ast, {
     enter(path) {
+      if (
+        t.isTSTypeAliasDeclaration(path.node) ||
+        t.isTSInterfaceDeclaration(path.node) ||
+        t.isTSEnumDeclaration(path.node)
+      ) {
+        path.skip(); // Skip traversal for TypeScript-specific nodes
+        return;
+      }
+
       if (t.isImportDeclaration(path.node)) {
         dependencies.push({
           value: path.toString(),
