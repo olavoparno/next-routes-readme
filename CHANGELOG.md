@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.22](https://github.com/olavoparno/next-routes-readme/compare/v0.0.21...v0.0.22) (2024-11-11)
+
+
+* ignore typescript declarations ([47a4938](https://github.com/olavoparno/next-routes-readme/commit/47a4938f4ecd7a3b20e53e4dc84417f2d4077af5))
+
 ### 0.0.21 (2024-11-08)
 
 
