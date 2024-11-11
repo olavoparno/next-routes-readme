@@ -22,15 +22,17 @@ export function generateOpenAPISpec(
 
     // file example: examples/app/[dynamicRoute]/[...subMultipleDynamicRoutes]/route.ts
     // API routes path follows this example /api/{routePath}
-    const normalizedProjectRoot = projectRoot.replace(/[^a-zA-Z]/g, '');
+    const normalizedProjectRoot = projectRoot.replace('./', '');
     const normalizedFileName = currentHandler.file
       .replace(normalizedProjectRoot, '')
       .replace(/.ts|.js/, '')
       .replace('/route', '');
-    const normalizedFileNameWOApp = normalizedFileName.startsWith('/app/')
-      ? normalizedFileName.replace('/app/', '/')
-      : normalizedFileName;
-    const routePath = `/api${normalizedFileNameWOApp}`;
+    const normalizedFileNameWithSlash = normalizedFileName.startsWith('/')
+      ? normalizedFileName
+      : `/${normalizedFileName}`;
+    // remove app, src and api from name path
+    const normalizedFileNameWOApp = normalizedFileNameWithSlash.replace(/\/app|\/src|\/api/g, '');
+    const routePath = `/api${normalizedFileNameWOApp.startsWith('/') ? '' : '/'}${normalizedFileNameWOApp}`;
 
     openApiString += `
     "${routePath}": {

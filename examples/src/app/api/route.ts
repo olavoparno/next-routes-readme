@@ -8,7 +8,7 @@ const anotherFunction = async () => {
 
 export type FakeTypings = Awaited<ReturnType<typeof anotherFunction>>;
 
-export const POST = async (request: NextRequest): Promise<{ message: string }> => {
+export const POST = async (request: NextRequest) => {
   await anotherFunction();
 
   try {

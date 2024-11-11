@@ -11,10 +11,12 @@ export function generateMarkdownOutput(
     file.endsWith(`${constants.middlewareFilename}.ts`) ||
     file.endsWith(`${constants.middlewareFilename}.js`);
 
+  const fileRelativePath = `../${file}`;
+
   const markdownOutput = `
 ---
 
-# [${file}](${file}):
+# [${file}](${fileRelativePath}):
 
 **Implementation**: \`${currentHandler.implementation}\`  
 **HTTP Method**: \`${currentHandler.method}\`
@@ -26,7 +28,7 @@ ${
     .map((variable, idx) => {
       return `${idx + 1}. 
       - **Value**: \`${variable.value}\`
-      - **Line**: [${file}#L${variable.line}](${file}#L${variable.line})`;
+      - **Line**: [${file}#L${variable.line}](${fileRelativePath}#L${variable.line})`;
     })
     .join('\n\n') || '*None*'
 }
@@ -38,7 +40,7 @@ ${
     .map((conditional, idx) => {
       return `${idx + 1}. 
       - **Value**: \`${conditional.value}\`
-      - **Line**: [${file}#L${conditional.line}](${file}#L${conditional.line})`;
+      - **Line**: [${file}#L${conditional.line}](${fileRelativePath}#L${conditional.line})`;
     })
     .join('\n\n') || '*None*'
 }
@@ -50,7 +52,7 @@ ${
     .map((comment, idx) => {
       return `${idx + 1}. 
       - **Value**: \`${comment.value}\`
-      - **Line**: [${file}#L${comment.line}](${file}#L${comment.line})`;
+      - **Line**: [${file}#L${comment.line}](${fileRelativePath}#L${comment.line})`;
     })
     .join('\n\n') || '*None*'
 }
@@ -62,7 +64,7 @@ ${
     .map((error, idx) => {
       return `${idx + 1}. 
       - **Value**: \`${error.value}\`
-      - **Line**: [${file}#L${error.line}](${file}#L${error.line})`;
+      - **Line**: [${file}#L${error.line}](${fileRelativePath}#L${error.line})`;
     })
     .join('\n\n') || '*None*'
 }
@@ -117,7 +119,7 @@ ${
       return `${idx + 1}. 
       - **Value**: \`${redirect.value}\`
       - **Status**: \`${redirect.status}\`
-      - **Line**: [${file}#L${redirect.line}](${file}#L${redirect.line})`;
+      - **Line**: [${file}#L${redirect.line}](${fileRelativePath}#L${redirect.line})`;
     })
     .join('\n\n') || '*None*'
 }
@@ -130,7 +132,7 @@ ${
       return `${idx + 1}. 
       - **Value**: \`${rewrite.value}\`
       - **Status**: \`${rewrite.status}\`
-      - **Line**: [${file}#L${rewrite.line}](${file}#L${rewrite.line})`;
+      - **Line**: [${file}#L${rewrite.line}](${fileRelativePath}#L${rewrite.line})`;
     })
     .join('\n\n') || '*None*'
 }
@@ -142,7 +144,7 @@ ${
     .map((dependency, idx) => {
       return `${idx + 1}. 
       - **Value**: \`${dependency.value}\`
-      - **Line**: [${file}#L${dependency.line}](${file}#L${dependency.line})`;
+      - **Line**: [${file}#L${dependency.line}](${fileRelativePath}#L${dependency.line})`;
     })
     .join('\n\n') || '*None*'
 }

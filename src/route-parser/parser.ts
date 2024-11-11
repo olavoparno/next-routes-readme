@@ -6,10 +6,34 @@ import { Item, RouteHandler } from '../types/route-handler';
 import { isHttpStatusValid } from '../utils/isHttpStatusValid';
 import { constants } from '../config/constants';
 
-function getHttpMethod(name: string): string {
-  const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'];
+function getHttpMethod(name: string) {
+  const httpMethods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'];
 
-  return methods.find(method => name.toUpperCase().startsWith(method)) || '<unable_to_determine>';
+  return httpMethods.find(method => name.toUpperCase().startsWith(method)) || false;
+}
+
+function getArrowFunctionWithNameWithinHttpMethods(node: t.Node) {
+  if (node.type !== 'ExportNamedDeclaration') return false;
+
+  let possibleRouteName =
+    node.type === 'ExportNamedDeclaration' &&
+    node.declaration?.type === 'VariableDeclaration' &&
+    node.declaration.declarations[0].type === 'VariableDeclarator' &&
+    node.declaration.declarations[0].id.type === 'Identifier' &&
+    node.declaration.declarations[0].id.name;
+
+  if (possibleRouteName) return getHttpMethod(possibleRouteName);
+
+  possibleRouteName =
+    node.type === 'ExportNamedDeclaration' &&
+    node.declaration?.type === 'FunctionDeclaration' &&
+    node.declaration?.async &&
+    node.declaration.id?.type === 'Identifier' &&
+    node.declaration.id.name;
+
+  if (!possibleRouteName) return false;
+
+  return getHttpMethod(possibleRouteName);
 }
 
 export function parseRouteHandlers(routeFile: string): RouteHandler | null {
@@ -68,32 +92,33 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
         }
       });
 
-      function isPathFunctionOrArrowFunction(node: t.Node) {
-        return t.isFunctionDeclaration(node) || t.isArrowFunctionExpression(node);
-      }
+      const possibleHttpRoute = getArrowFunctionWithNameWithinHttpMethods(path.node);
 
       // Check for async function declaration
-      if (isPathFunctionOrArrowFunction(path.node) && path.node.async) {
+      if (possibleHttpRoute) {
         const name =
+          possibleHttpRoute ||
           (path.node as t.FunctionDeclaration)?.id?.name ||
           (path.container as t.FunctionDeclaration)?.id?.name ||
           '';
         const isFunctionDeclaration = t.isFunctionDeclaration(path.node);
 
-        const params = path.node.params
-          .map(param => content.substring(param.start!, param.end!))
-          .join(', ');
-        const returnType = path.node.returnType
-          ? content.substring(path.node.returnType.start!, path.node.returnType.end!)
-          : '';
+        const params =
+          'params' in path.node &&
+          path.node.params.length > 0 &&
+          path.node.params.map(param => content.substring(param.start!, param.end!)).join(', ');
+        const returnType =
+          'returnType' in path.node && path.node.returnType?.start && path.node.returnType?.end
+            ? content.substring(path.node.returnType?.start, path.node.returnType?.end)
+            : '';
 
         // Initialize `currentHandler` with new `routeParams` that can hold both single and multi params
         currentHandler = {
           implementation: isFunctionDeclaration
-            ? `async function ${name}(${params})${returnType}`
-            : `const ${name} = async (${params})${returnType}`,
+            ? `async function ${name}(${params ?? ''})${returnType ?? ''}`
+            : `const ${name} = async (${params})${returnType ?? ''}`,
           name,
-          method: getHttpMethod(name),
+          method: isMiddleware ? 'GET' : getHttpMethod(name) || '<unable_to_determine>',
           file: routeFile,
           doc: {
             variables: [],
