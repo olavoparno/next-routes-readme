@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.24](https://github.com/olavoparno/next-routes-readme/compare/v0.0.23...v0.0.24) (2024-11-11)
+
+
+* adjust everything again ([72ebc46](https://github.com/olavoparno/next-routes-readme/commit/72ebc4649b18117ae74079915afbd728b273a6e2))
+
 ### [0.0.23](https://github.com/olavoparno/next-routes-readme/compare/v0.0.22...v0.0.23) (2024-11-11)
 
 
