@@ -1,6 +1,6 @@
 {
   "name": "next-routes-readme",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Creates README badges from istanbul coverage report",
   "type": "commonjs",
   "scripts": {
