@@ -5,6 +5,7 @@ export interface RouteHandler {
   name: string;
   method: string;
   file: string;
+  routePath: string;
   implementation: string;
   doc: {
     errors: Item[];

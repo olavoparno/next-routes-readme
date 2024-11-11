@@ -36,7 +36,23 @@ function getArrowFunctionWithNameWithinHttpMethods(node: t.Node) {
   return getHttpMethod(possibleRouteName);
 }
 
-export function parseRouteHandlers(routeFile: string): RouteHandler | null {
+function getRoutePath(projectRoot: string, routeFile: string) {
+  const normalizedProjectRoot = projectRoot.replace('./', '');
+  const normalizedFileName = routeFile
+    .replace(normalizedProjectRoot, '')
+    .replace(/.ts|.js/, '')
+    .replace('/route', '');
+  const normalizedFileNameWithSlash = normalizedFileName.startsWith('/')
+    ? normalizedFileName
+    : `/${normalizedFileName}`;
+  // remove app, src and api from name path
+  const normalizedFileNameWOApp = normalizedFileNameWithSlash.replace(/\/app|\/src|\/api/g, '');
+  const routePath = `/api${normalizedFileNameWOApp.startsWith('/') ? '' : '/'}${normalizedFileNameWOApp}`;
+
+  return routePath;
+}
+
+export function parseRouteHandlers(routeFile: string, projectRoot: string): RouteHandler | null {
   const content = fs.readFileSync(routeFile, 'utf-8');
   const dependencies: Item[] = [];
   const isMiddleware =
@@ -119,6 +135,7 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
             : `const ${name} = async (${params})${returnType ?? ''}`,
           name,
           method: isMiddleware ? 'GET' : getHttpMethod(name) || '<unable_to_determine>',
+          routePath: getRoutePath(projectRoot, routeFile),
           file: routeFile,
           doc: {
             variables: [],
@@ -369,13 +386,15 @@ export function parseRouteHandlers(routeFile: string): RouteHandler | null {
 
         // 'http://localhost:3000:dynamicRoute/${dynamicRoute},:subMultipleDynamicRoutes/${subMultipleDynamicRoutes}/'
         if (currentHandler && !isMiddleware) {
-          let cURL = `curl -X ${currentHandler.method.toUpperCase()} 'http://localhost:3000${
-            routeParams
-              ? `/${Object.keys(routeParams)
-                  .map(currentParamKey => currentParamKey)
-                  .join('/')}`
-              : ''
-          }'`;
+          let cURL = `curl -X ${currentHandler.method.toUpperCase()} 'http://localhost:3000${currentHandler.routePath}`;
+
+          if (currentHandler.doc.routeParams) {
+            const routeParamsString = `/${Object.keys(routeParams)
+              .map(currentParamKey => currentParamKey)
+              .join('/')}`;
+
+            cURL = `curl -X ${currentHandler.method.toUpperCase()} 'http://localhost:3000${routeParamsString}`;
+          }
 
           if (currentHandler.doc.queryParams.length > 0) {
             const queryParamsString = currentHandler.doc.queryParams

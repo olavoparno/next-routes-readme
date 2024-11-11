@@ -49,7 +49,7 @@ async function main() {
       ) {
         hasRoutes = true;
 
-        const currentHandler = parseRouteHandlers(file);
+        const currentHandler = parseRouteHandlers(file, projectRoot);
 
         if (currentHandler) {
           currentFiles.push({ file, index: currentFiles.length + 1 });
